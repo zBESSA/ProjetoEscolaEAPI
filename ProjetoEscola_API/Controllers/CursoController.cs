@@ -36,5 +36,20 @@ namespace ProjetoEscola_API.Controllers{
                 "Falha no acesso ao banco de dados.");
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult> post(Curso model){
+            try{
+                _context.Curso.Add(model);
+                if (await _context.SaveChangesAsync() == 1){
+                    return Ok();
+                }
+            }
+            catch{
+                return this.StatusCode(StatusCodes.Status500InternalServerError, 
+                "Falha no acesso ao banco de dados.");
+            }
+            return BadRequest();
+        }
     }
 }
